@@ -1,0 +1,31 @@
+package com.example.ucare;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView bnv;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bnv=findViewById(R.id.BottomNavigationView);
+        bnv.setBackground(null);
+        //bnv.getMenu().getItem(1).setChecked(true);
+        bnv.setSelectedItemId(R.id.holder);
+
+    }
+    public void homeOnClick(View view){
+        bnv.getMenu().getItem(0).setChecked(false);
+        bnv.getMenu().getItem(1).setChecked(false);
+    }
+    public void bmiCalculate(View view){
+        Intent intent=new Intent(MainActivity.this,bmi_calculator.class);
+        startActivity(intent);
+    }
+}
