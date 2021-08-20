@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
-        <activity android:name=".sign_in"></activity>
+        <activity android:name=".login"></activity>
+        <activity android:name=".sign_in" />
         <activity android:name=".bmiactivity" />
         <activity android:name=".bmi_calculator" />
         <activity android:name=".MainActivity">
