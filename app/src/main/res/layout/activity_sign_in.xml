@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".sign_in">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -98,7 +98,7 @@
             />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -129,25 +129,28 @@
 
             />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/backgroundedit"
-            android:ems="10"
+
             android:hint="Enter Your Password"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:textColor="#404040"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/passwordText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:background="@drawable/backgroundedit"
+                android:ems="10"/>
 
-            android:textSize="17dp">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </EditText>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sign_up"
             android:layout_width="300dp"
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
@@ -170,8 +173,37 @@
 
                 />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="5dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? go to"/>
+
+            <TextView
+                android:id="@+id/goto_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text=" Login"
+                android:textStyle="bold|italic"
+                android:onClick="gotoLogin"/>
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
