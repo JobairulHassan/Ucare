@@ -109,7 +109,12 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
 
-                    android:src="@drawable/blog1" />
+                    android:src="@drawable/blog1"
+android:onClick=""
+
+                    />
+
+
             </LinearLayout>
 
 
