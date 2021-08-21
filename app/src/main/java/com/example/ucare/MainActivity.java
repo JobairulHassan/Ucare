@@ -28,4 +28,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,bmi_calculator.class);
         startActivity(intent);
     }
+    public void signup(View v){
+        Intent intent=new Intent(MainActivity.this,sign_in.class);
+        startActivity(intent);
+    }
 }
