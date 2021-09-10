@@ -50,38 +50,7 @@
 
             />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:text="Name"
 
-            android:textColor="#7868e5"
-            android:textSize="20sp"
-            android:textStyle="bold"
-
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/backgroundedit"
-            android:ems="10"
-            android:hint="Enter Your Name"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:textColor="#404040"
-            android:textSize="17dp"
-
-
-            >
-
-        </EditText>
 
         <TextView
             android:id="@+id/textView3"
@@ -114,9 +83,8 @@
             android:textSize="17dp">
 
         </EditText>
-
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -140,6 +108,40 @@
             app:passwordToggleEnabled="true">
             <EditText
                 android:id="@+id/passwordText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:background="@drawable/backgroundedit"
+                android:ems="10"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Confirm Password"
+
+            android:textColor="#7868e5"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+
+            android:hint="Enter Your Password Again"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/ConfirmPasswordText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
