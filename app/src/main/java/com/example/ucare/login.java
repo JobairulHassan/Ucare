@@ -1,5 +1,6 @@
 package com.example.ucare;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -10,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity implements View.OnClickListener{
@@ -56,7 +61,21 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     private void LogIn() {
         String mail= email.getText().toString().trim();
         String pass= password.getText().toString().trim();
+        pb.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull  Task<AuthResult> task) {
+                pb.setVisibility(View.GONE);
+                if(task.isSuccessful())
+                {
+                    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG ).show();
+                }
 
-
+            }
+        });
     }
 }

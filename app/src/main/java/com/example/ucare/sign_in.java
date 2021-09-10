@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class sign_in extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,6 +41,16 @@ public class sign_in extends AppCompatActivity implements View.OnClickListener {
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
 
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
+
+        if(firebaseUser != null){
+            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
     }
     public void gotoLogin(View view){
         Intent intent=new Intent(sign_in.this,login.class);
@@ -63,7 +74,7 @@ public class sign_in extends AppCompatActivity implements View.OnClickListener {
     private void userRegistration() {
         String mail= email.getText().toString().trim();
         String pass= password.getText().toString().trim();
-        String Cpass= password.getText().toString().trim();
+        String Cpass= confirmPassword.getText().toString().trim();
 
 
         //checking the validity of the email
