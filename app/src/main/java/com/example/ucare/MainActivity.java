@@ -32,4 +32,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,sign_in.class);
         startActivity(intent);
     }
+    public void pill_remainder(View v){
+        Intent intent=new Intent(MainActivity.this,sign_in.class);
+        startActivity(intent);
+    }
 }

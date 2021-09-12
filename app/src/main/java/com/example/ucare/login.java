@@ -70,6 +70,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 {
                     Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
                     startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG ).show();
