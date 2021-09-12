@@ -65,6 +65,7 @@
             />
 
         <EditText
+            android:id="@+id/emailTxt"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -97,36 +98,35 @@
 
             />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName2"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/backgroundedit"
-            android:ems="10"
+
             android:hint="Enter Your Password"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:textColor="#404040"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/passwordTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:background="@drawable/backgroundedit"
+                android:ems="10"/>
 
-            android:textSize="17dp">
-
-        </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/logInBtn"
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_marginStart="150dp"
             android:layout_marginTop="16dp"
-
-
             android:text="Login" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/recoverTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -134,10 +134,7 @@
             android:text="Forget Your Password? Recover it"
             android:textAlignment="center"
             android:textColor="#7868e5"
-            android:textSize="16sp"
-
-
-            />
+            android:textSize="16sp" />
 
 
         <LinearLayout
@@ -195,7 +192,12 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <ProgressBar
+            android:id="@+id/pg_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

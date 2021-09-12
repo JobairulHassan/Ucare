@@ -16,11 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class sign_in extends AppCompatActivity implements View.OnClickListener {
 
     private TextView login;
-    private EditText email,password;
+    private EditText email,password,confirmPassword;
     private ConstraintLayout signup;
     private FirebaseAuth mAuth;
     private ProgressBar pb;
@@ -34,10 +35,21 @@ public class sign_in extends AppCompatActivity implements View.OnClickListener {
         login=findViewById(R.id.goto_login);
         email=findViewById(R.id.emailText);
         password=findViewById(R.id.passwordText);
+        confirmPassword=findViewById(R.id.ConfirmPasswordText);
         signup=findViewById(R.id.sign_up);
         pb=findViewById(R.id.progress_bar);
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
+
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
+
+        if(firebaseUser != null){
+            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
 
     }
     public void gotoLogin(View view){
@@ -62,6 +74,8 @@ public class sign_in extends AppCompatActivity implements View.OnClickListener {
     private void userRegistration() {
         String mail= email.getText().toString().trim();
         String pass= password.getText().toString().trim();
+        String Cpass= confirmPassword.getText().toString().trim();
+
 
         //checking the validity of the email
         if(mail.isEmpty())
@@ -91,6 +105,14 @@ public class sign_in extends AppCompatActivity implements View.OnClickListener {
             password.requestFocus();
             return;
         }
+        if(!pass.equals(Cpass))
+        {
+            password.setError("Password Mismatch");
+            confirmPassword.setError("Password Mismatch");
+            password.requestFocus();
+            confirmPassword.requestFocus();
+            return;
+        }
 
         pb.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -98,6 +120,7 @@ public class sign_in extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 pb.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
+
                     Toast.makeText(getApplicationContext(),"Registration is successful",Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(),"Registration is not successful",Toast.LENGTH_SHORT).show();

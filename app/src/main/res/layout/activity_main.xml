@@ -64,24 +64,31 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:background="@color/mainpg_icon"
+                    android:padding="25dp"
                     android:layout_weight="1"
                     android:src="@drawable/bmi"
                     android:onClick="bmiCalculate"/>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="114dp"
+                <ImageView
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:background="@color/mainpg_icon"
+                    android:padding="25dp"
                     android:layout_weight="1"
-                    android:src="@drawable/pillreminder" />
+                    android:src="@drawable/pillremainder"
+                    android:onClick="pill_remainder"/>
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:background="@color/mainpg_icon"
+                    android:padding="25dp"
                     android:onClick="signup"
-                    android:src="@drawable/blog1" />
+                    android:src="@drawable/blog" />
             </LinearLayout>
 
             <LinearLayout
@@ -89,11 +96,14 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp">
 
+
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:src="@drawable/bmi" />
+                    android:background="@color/mainpg_icon"
+                    android:padding="25dp"
+                    android:src="@drawable/medicalhistory" />
 
                 <ImageView
                     android:layout_width="114dp"
@@ -101,16 +111,18 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
-
-                    android:src="@drawable/pillreminder" />
+                    android:background="@color/mainpg_icon"
+                    android:padding="25dp"
+                    android:src="@drawable/diet" />
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:background="@color/mainpg_icon"
+                    android:padding="25dp"
+                    android:src="@drawable/firstaid"
 
-                    android:src="@drawable/blog1"
-android:onClick=""
 
                     />
 
