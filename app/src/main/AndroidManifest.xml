@@ -10,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
+        <activity android:name=".heartAttack"></activity>
+        <activity android:name=".profile_user" />
+        <activity android:name=".firstAid_main" />
         <activity android:name=".splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,15 +24,16 @@
         <activity android:name=".sign_in" />
         <activity android:name=".bmiactivity" />
         <activity android:name=".bmi_calculator" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
 
-        </activity>
+        
 
         <!-- activity related medicine remainder -->
         <activity android:name=".medicine.MedicineActivity"/>
         <activity android:name=".addmedicine.AddMedicineActivity" />
         <activity android:name=".alarm.ReminderActivity" />
         <activity android:name=".report.MonthlyReportActivity"/>
+
     </application>
 
 </manifest>
