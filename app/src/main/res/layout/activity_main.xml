@@ -103,7 +103,9 @@
                     android:layout_weight="1"
                     android:background="@color/mainpg_icon"
                     android:padding="25dp"
-                    android:src="@drawable/medicalhistory" />
+                    android:src="@drawable/medicalhistory"
+                    android:onClick="profile"
+                    />
 
                 <ImageView
                     android:layout_width="114dp"
@@ -122,6 +124,8 @@
                     android:background="@color/mainpg_icon"
                     android:padding="25dp"
                     android:src="@drawable/firstaid"
+
+                    android:onClick="FirstAid"
 
 
                     />
@@ -161,6 +165,7 @@
             app:menu="@menu/bottom_menu"
             android:background="@android:color/transparent"
             android:layout_marginRight="20dp"
+
             app:itemIconTint="@color/bottom_item_background"
             app:itemTextColor="@color/bottom_item_background"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
