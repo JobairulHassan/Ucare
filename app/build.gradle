@@ -41,4 +41,12 @@ dependencies {
 
     //for circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //for medicine remainder
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 }

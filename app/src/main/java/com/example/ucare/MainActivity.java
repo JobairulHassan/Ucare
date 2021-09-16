@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.ucare.medicine.MedicineActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void pill_remainder(View v){
-        Intent intent=new Intent(MainActivity.this,sign_in.class);
+        Intent intent=new Intent(MainActivity.this, MedicineActivity.class);
         startActivity(intent);
     }
 }
