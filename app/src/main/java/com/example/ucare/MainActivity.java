@@ -36,4 +36,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,sign_in.class);
         startActivity(intent);
     }
+
+    public void FirstAid (View v){
+        Intent intent=new Intent(MainActivity.this,firstAid_main.class);
+        startActivity(intent);
+    }
+    public void profile (View v){
+        Intent intent=new Intent(MainActivity.this,profile_user.class);
+        startActivity(intent);
+    }
+
 }
