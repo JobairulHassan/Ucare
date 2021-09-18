@@ -3,6 +3,7 @@
     package="com.example.ucare">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
-        <activity android:name=".heartAttack"></activity>
+        <activity android:name=".bleed"></activity>
+        <activity android:name=".chocking" />
+        <activity android:name=".corona" />
+        <activity android:name=".shock" />
+        <activity android:name=".bandage" />
+        <activity android:name=".burn" />
+        <activity android:name=".poisoning" />
+        <activity android:name=".fracture" />
+        <activity android:name=".stroke" />
+        <activity android:name=".heartAttack" />
         <activity android:name=".profile_user" />
         <activity android:name=".firstAid_main" />
         <activity android:name=".splash_screen">
@@ -24,16 +34,11 @@
         <activity android:name=".sign_in" />
         <activity android:name=".bmiactivity" />
         <activity android:name=".bmi_calculator" />
-        <activity android:name=".MainActivity" />
-
-        
-
-        <!-- activity related medicine remainder -->
-        <activity android:name=".medicine.MedicineActivity"/>
+        <activity android:name=".MainActivity" /> <!-- activity related medicine remainder -->
+        <activity android:name=".medicine.MedicineActivity" />
         <activity android:name=".addmedicine.AddMedicineActivity" />
         <activity android:name=".alarm.ReminderActivity" />
-        <activity android:name=".report.MonthlyReportActivity"/>
-
+        <activity android:name=".report.MonthlyReportActivity" />
     </application>
 
 </manifest>
