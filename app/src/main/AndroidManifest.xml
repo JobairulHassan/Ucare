@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ucare">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
-        <activity android:name=".bleed"></activity>
+        <activity android:name=".RetrievePDF" />
+        <activity android:name=".med_pdf" />
+        <activity android:name=".bleed" />
         <activity android:name=".chocking" />
         <activity android:name=".corona" />
         <activity android:name=".shock" />

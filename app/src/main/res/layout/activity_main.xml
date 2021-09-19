@@ -104,7 +104,8 @@
                     android:background="@color/mainpg_icon"
                     android:padding="25dp"
                     android:src="@drawable/medicalhistory"
-                    android:onClick="profile"
+                    android:onClick="pdf"
+
                     />
 
                 <ImageView
@@ -115,7 +116,9 @@
                     android:layout_weight="1"
                     android:background="@color/mainpg_icon"
                     android:padding="25dp"
-                    android:src="@drawable/diet" />
+                    android:src="@drawable/diet"
+
+                    />
 
                 <ImageView
                     android:layout_width="100dp"
