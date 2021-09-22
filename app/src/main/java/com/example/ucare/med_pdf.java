@@ -96,6 +96,7 @@ public class med_pdf extends AppCompatActivity {
                         databaseReference.child(databaseReference.push().getKey()).setValue(putPDF);
                         Toast.makeText(med_pdf.this,"File Upload",Toast.LENGTH_SHORT).show();
                         editText.setText("");
+                        upload.setEnabled(false);
                         progressDialog.dismiss();
 
 
