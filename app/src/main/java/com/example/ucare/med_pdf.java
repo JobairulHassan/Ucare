@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,7 +29,9 @@ public class med_pdf extends AppCompatActivity {
     EditText editText;
     Button upload;
     StorageReference storageReference;
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase root;
+    private FirebaseUser user;
 
 
     @Override
@@ -37,8 +41,10 @@ public class med_pdf extends AppCompatActivity {
         editText=findViewById(R.id.editText);
         upload=findViewById(R.id.upload);
         storageReference= FirebaseStorage.getInstance().getReference();
-        databaseReference= FirebaseDatabase.getInstance().getReference("uploadPDF");
-
+        //databaseReference= FirebaseDatabase.getInstance().getReference("uploadPDF");
+        root=FirebaseDatabase.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference=root.getReference("uploadPDF").child(user.getUid());
         upload.setEnabled(false);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +60,8 @@ public class med_pdf extends AppCompatActivity {
         intent.setAction(intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"PDF FILE SELECT"),12);
 
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
@@ -89,7 +95,8 @@ public class med_pdf extends AppCompatActivity {
                         putPDF putPDF=new putPDF(editText.getText().toString(),uri.toString());
                         databaseReference.child(databaseReference.push().getKey()).setValue(putPDF);
                         Toast.makeText(med_pdf.this,"File Upload",Toast.LENGTH_SHORT).show();
-                         progressDialog.dismiss();
+                        editText.setText("");
+                        progressDialog.dismiss();
 
 
                     }
@@ -107,4 +114,6 @@ public class med_pdf extends AppCompatActivity {
     public void retrive(View view) {
         startActivity(new Intent(getApplicationContext(),RetrievePDF.class));
     }
+
+
 }

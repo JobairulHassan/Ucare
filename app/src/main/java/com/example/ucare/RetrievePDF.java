@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,7 @@ public class RetrievePDF extends AppCompatActivity {
     ListView listView;
     DatabaseReference databaseReference;
     List<putPDF> uploadedPDF;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class RetrievePDF extends AppCompatActivity {
         setContentView(R.layout.activity_retrieve_pdf);
         listView = findViewById(R.id.listView);
         uploadedPDF = new ArrayList<>();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("uploadPDF").child(user.getUid());
 
         retrievePDFFiles();
 
@@ -54,7 +60,7 @@ public class RetrievePDF extends AppCompatActivity {
     }
     private void retrievePDFFiles()
     {
-        databaseReference= FirebaseDatabase.getInstance().getReference("uploadPDF");
+        //databaseReference= FirebaseDatabase.getInstance().getReference("uploadPDF");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
@@ -63,7 +69,7 @@ public class RetrievePDF extends AppCompatActivity {
                     uploadedPDF.add(putPDF);
 
                 }
-                String[]uploadsName=new String[uploadedPDF.size()];
+                String[] uploadsName=new String[uploadedPDF.size()];
                 for (int i=0;i<uploadsName.length;i++)
                 {
                     uploadsName[i]=uploadedPDF.get(i).getName();
@@ -74,7 +80,7 @@ public class RetrievePDF extends AppCompatActivity {
                     @NonNull
                     @Override
                     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view=super.getView(position,convertView,parent);
+                        View view=super.getView(position, convertView,parent);
                         TextView textView=(TextView) view.findViewById(android.R.id.text1);
                         textView.setTextColor(Color.BLACK);
                         textView.setTextSize(20);
@@ -82,7 +88,7 @@ public class RetrievePDF extends AppCompatActivity {
                     }
                 };
 
-listView.setAdapter(arrayAdapter);
+                listView.setAdapter(arrayAdapter);
             }
 
             @Override
