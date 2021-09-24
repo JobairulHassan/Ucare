@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,med_pdf.class);
         startActivity(intent);
     }
+    public void user_profile (View v){
+        Intent intent=new Intent(MainActivity.this,profile_user.class);
+        startActivity(intent);
+    }
 
 
 }

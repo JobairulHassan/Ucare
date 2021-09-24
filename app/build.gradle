@@ -61,4 +61,7 @@ dependencies {
     
     //For First Aid
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    //crop image
+    implementation'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
 }
