@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_profile"
 
     tools:context=".profile_user">
     <de.hdodenhof.circleimageview.CircleImageView
@@ -95,6 +96,23 @@
         android:layout_marginBottom="23dp"
         android:background="@drawable/custom_button"
         android:text="Update" />
+
+    <Button
+        android:id="@+id/logOut"
+        android:layout_width="100dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="160dp"
+        android:layout_below="@+id/UpdateAccountSettings"
+        android:textAllCaps="false"
+        android:text="Logout" />
+
+
+
+
+
+
+
 </RelativeLayout>
 
 
@@ -109,6 +127,18 @@
          android:layout_marginTop="5dp"
          android:textSize="18sp"
          android:text="Shakib-al-Hasan"
+
+
+
+          <Button
+        android:id="@+id/logInBtn"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/UpdateAccountSettings"
+        android:text="Login" />
+
 
          >
 

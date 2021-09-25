@@ -48,6 +48,7 @@ public class profile_user extends AppCompatActivity {
    private String currentUserID ;
    private FirebaseAuth mAuth;
    private ProgressDialog loadingBar;
+   private Button logout;
 
 
     @Override
@@ -82,6 +83,15 @@ public class profile_user extends AppCompatActivity {
             }
         });
         RetrieveUserInformation();
+
+logout=(Button)findViewById(R.id.logOut);
+logout.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(profile_user.this,login.class));
+    }
+});
     }
 
 
