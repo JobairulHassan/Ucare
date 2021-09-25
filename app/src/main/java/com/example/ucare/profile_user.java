@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,17 +12,22 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -41,6 +47,7 @@ public class profile_user extends AppCompatActivity {
     private DatabaseReference RootRef;
    private String currentUserID ;
    private FirebaseAuth mAuth;
+   private ProgressDialog loadingBar;
 
 
     @Override
@@ -61,6 +68,7 @@ public class profile_user extends AppCompatActivity {
             }
         });
 
+
         userProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +81,9 @@ public class profile_user extends AppCompatActivity {
 
             }
         });
+        RetrieveUserInformation();
     }
+
 
 
 
@@ -83,6 +93,7 @@ public class profile_user extends AppCompatActivity {
         UserGender=(EditText)findViewById(R.id.set_user_gender);
         UserAge=(EditText)findViewById(R.id.set_user_age);
         userProfileImage=(CircleImageView)findViewById(R.id.imageView);
+        loadingBar= new ProgressDialog(this );
 
     }
 
@@ -101,7 +112,12 @@ public class profile_user extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK)
+
             {
+                loadingBar.setTitle("Set Profile Image");
+                loadingBar.setMessage("Please wait,your profile image is updating");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
                 Uri resultUri=result.getUri();
 
                 StorageReference filePath =UserProfileImagesRef.child(currentUserID+".jpg");
@@ -111,12 +127,32 @@ public class profile_user extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(profile_user.this,"Profile Image uploaded Successfully",Toast.LENGTH_SHORT).show();
+                            final String downloaedUrl=task.getResult().getStorage().getDownloadUrl().toString();
+                            RootRef.child("Users").child(currentUserID).child("image").setValue(downloaedUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull  Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {
+                                        Toast.makeText(profile_user.this, "Image save in database ,successfully... ", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+                                    }
+                                    else
+                                    {
+                                        String message =task.getException().toString();
+                                        Toast.makeText(profile_user.this,"Error",Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+
+                                    }
+
+                                }
+                            });
 
                         }
                         else
                         {
                             String message =task.getException().toString();
                             Toast.makeText(profile_user.this,"Error",Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
                         }
 
                     }
@@ -157,6 +193,7 @@ public class profile_user extends AppCompatActivity {
                     {
                         Toast.makeText(profile_user.this,"Update successfully",Toast.LENGTH_SHORT).show();
 
+
                     }
                     else
                     {
@@ -169,4 +206,40 @@ public class profile_user extends AppCompatActivity {
 
         }
     }
+    private void RetrieveUserInformation() {
+
+        RootRef.child("Users").child(currentUserID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot dataSnapshot) {
+                        if((dataSnapshot.exists()) &&(dataSnapshot.hasChild("name") &&(dataSnapshot.hasChild("image"))))
+                        {
+                            String retrieveUserName =dataSnapshot.child("name").getValue().toString();
+                            String retrieveGender =dataSnapshot.child("gender").getValue().toString();
+                            String retrieveAge =dataSnapshot.child("age").getValue().toString();
+                            String retrieveProfileImage =dataSnapshot.child("image").getValue().toString();
+
+                            username.setText(retrieveUserName);
+                            UserAge.setText(retrieveAge);
+                            UserGender.setText(retrieveGender);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                        }
+
+
+                        else
+                        {
+
+                            Toast.makeText(profile_user.this,"Set And Update Your Profile Information....",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+
+                    }
+                });
+    }
+
+
 }
