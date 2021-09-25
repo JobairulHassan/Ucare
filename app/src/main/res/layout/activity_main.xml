@@ -117,7 +117,7 @@
                     android:background="@color/mainpg_icon"
                     android:padding="25dp"
                     android:src="@drawable/diet"
-
+                    android:onClick="callorie_counter"
                     />
 
                 <ImageView

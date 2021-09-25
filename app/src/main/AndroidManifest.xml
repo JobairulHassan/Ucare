@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
+
         <activity android:name=".RetrievePDF" />
         <activity android:name=".med_pdf" />
         <activity android:name=".bleed" />
@@ -42,7 +43,13 @@
         <activity android:name=".medicine.MedicineActivity" />
         <activity android:name=".addmedicine.AddMedicineActivity" />
         <activity android:name=".alarm.ReminderActivity" />
-        <activity android:name=".report.MonthlyReportActivity" />
+        <activity android:name=".report.MonthlyReportActivity" /> <!-- activity related Calorie counter -->
+        <activity android:name=".calorie_counter.EatActivity" />
+        <activity android:name=".calorie_counter.GetStart" />
+        <activity android:name=".calorie_counter.HistoryController" />
+        <activity android:name=".calorie_counter.OverviewActivity"></activity>
+        <activity android:name=".calorie_counter.CalculateEatCalories" />
+
     </application>
 
 </manifest>
