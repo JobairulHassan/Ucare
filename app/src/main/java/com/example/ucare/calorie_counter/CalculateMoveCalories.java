@@ -8,45 +8,44 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ucare.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CalculateEatCalories extends AppCompatActivity {
+public class CalculateMoveCalories extends AppCompatActivity {
+
 
     TextView clickedItem;
-    EditText gram;
+    EditText hour;
     TextView totalcalories;
     Intent intent;
     String clickedItemCalories;
-    String clickedItemfood;
+    String clickedItemExercise;
     private DatabaseReference ref_history;
     private FirebaseUser user;
     List<History> historyArrayList;
     ListView historyListView;
     Date today = new Date();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculate_eat_calories);
+        setContentView(R.layout.activity_calculate_move_calories);
 
-        gram = (EditText) findViewById(R.id.gram);
-        totalcalories = (TextView) findViewById(R.id.totalcalories);
+        hour = (EditText) findViewById(R.id.hour);
+        totalcalories = (TextView) findViewById(R.id.total_calories);
         clickedItem = (TextView) findViewById(R.id.clickedItem);
 
-        gram.addTextChangedListener(new TextWatcher() {
+        hour.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -62,13 +61,15 @@ public class CalculateEatCalories extends AppCompatActivity {
 
         intent = getIntent();
         clickedItemCalories = intent.getStringExtra("calories");
-        clickedItemfood = intent.getStringExtra("food");
-        clickedItem.setText("("+ clickedItemfood + ")"+ clickedItemCalories);
+        clickedItemExercise = intent.getStringExtra("exercise");
+        clickedItem.setText("("+ clickedItemExercise + ")"+ clickedItemCalories);
+
+
+
     }
 
-
     public void calculateTotal(View view) {
-        String total = String.valueOf(Integer.valueOf(String.valueOf(gram.getText())) * Integer.valueOf(clickedItemCalories));
+        String total = String.valueOf(Integer.valueOf(String.valueOf(hour.getText())) * Integer.valueOf(clickedItemCalories));
         totalcalories.setText(total);
     }
 
@@ -85,25 +86,22 @@ public class CalculateEatCalories extends AppCompatActivity {
         final String date = today.getYear()+1900 + "-" + (1+today.getMonth()) + "-" + today.getDate();
 
 
-        // wrire to the DB
-
-        //from food
-        intent = getIntent();
+        //from exercise
         String totalCalories = intent.getStringExtra("calories");
-        String total = String.valueOf(Integer.valueOf(String.valueOf(gram.getText())) * Integer.valueOf(clickedItemCalories));
-        String eat = intent.getStringExtra("food");
+        String total = String.valueOf(Integer.valueOf(String.valueOf(hour.getText())) * Integer.valueOf(clickedItemCalories));
+        String move = intent.getStringExtra("exercise");
         String id = ref_history.push().getKey();
 
-
         //set data
-        History history = new History(id, date, "EAT : " + eat, total);
+        History history = new History(id, date, "MOVE : " + move, total);
         ref_history.child(date).child(id).setValue(history);
 
 
+
         Intent intent = new Intent(this, HistoryController.class);
-        String t = String.valueOf(Integer.valueOf(String.valueOf(gram.getText())) * Integer.valueOf(clickedItemCalories));
-        intent.putExtra("totalCalories", t);
-        intent.putExtra("food",clickedItemfood);
+//        String total = String.valueOf(Integer.valueOf(String.valueOf(gram.getText())) * Integer.valueOf(clickedItemCalories));
+//        intent.putExtra("totalCalories", total);
+//        intent.putExtra("exercise", clickedItemExercise);
         startActivity(intent);
 
     }

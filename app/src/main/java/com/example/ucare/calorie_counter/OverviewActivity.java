@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import im.dacer.androidcharts.PieHelper;
 import im.dacer.androidcharts.PieView;
@@ -74,8 +75,10 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
 
-/** CHANGE HERE  basicInfo  */
-        ref_overview = database.getReference("basicInfo").child(user.getUid());
+        Date today=new Date();
+        final String date = today.getYear()+1900 + "-" + (1+today.getMonth()) + "-" + today.getDate();
+
+        ref_overview = database.getReference("overview").child(user.getUid()).child(date);
         ref_overview.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

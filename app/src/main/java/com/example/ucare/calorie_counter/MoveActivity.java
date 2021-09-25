@@ -1,17 +1,15 @@
 package com.example.ucare.calorie_counter;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ucare.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,38 +26,35 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class EatActivity extends AppCompatActivity {
-    SearchView searchView;
+public class MoveActivity extends AppCompatActivity {
+
     ListView listView;
-    ArrayAdapter<Eat> adapter;
-    ArrayAdapter<Eat> adapter2;
+    ArrayAdapter<Move> adapter;
+    ArrayAdapter<Move> adapter2;
     TextView eat_item;
     private InputStream inputStream;
     private BufferedReader bufferedReader;
-    private ArrayList<String> foodArray;
-    ArrayList<Eat> list;
-    ArrayList<Eat> list2;
+    private ArrayList<String> MoveArray;
+    ArrayList<Move> list;
+    ArrayList<Move> list2;
     Intent intent;
-    private DatabaseReference ref_eat;
+    private DatabaseReference ref_move;
     private DatabaseReference ref_basicInfo;
     private FirebaseUser user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eat);
+        setContentView(R.layout.activity_move);
 
-        listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.list_View);
         list = new ArrayList<>();
 
 
-//        // 1. read text file
-//        inputStream = getResources().openRawResource(R.raw.food_calories);
+        // 1. read text file
+//        inputStream = getResources().openRawResource(R.raw.exercise_calories);
 //        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//        foodArray = new ArrayList<>();
-//        list = new ArrayList<>();
-//        list2 = new ArrayList<>();
+//        MoveArray = new ArrayList<>();
 //
 //        try {
 //            String line;
@@ -67,36 +62,36 @@ public class EatActivity extends AppCompatActivity {
 //                line = (bufferedReader.readLine());
 //                if (line == null)
 //                    break;
-//                foodArray.add(line);
+//                MoveArray.add(line);
 //
 //            }
-//            for (int i = 1; i < foodArray.size() / 4; i++) {
-//                list.add(new Eat(foodArray.get(4 * i), foodArray.get(2 + 4 * i)));
-//                list2.add(new Eat(foodArray.get(4 * i), foodArray.get(2 + 4 * i)));
+//            for (int i = 1; i < MoveArray.size()/5-2; i++) {
+//                list.add(new Move(MoveArray.get(5*i), '-' + MoveArray.get(5*i+1)));
 //            }
 //
 //            bufferedReader.close();
 //            inputStream.close();
+//
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-//
-//        adapter = new ArrayAdapter<>(EatActivity.this, android.R.layout.simple_list_item_1,list);
-//        listView.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(MoveActivity.this, android.R.layout.simple_list_item_1,list);
+        listView.setAdapter(adapter);
 
         user= FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        ref_eat = database.getReference("DB_CaloriesInfo");
-        ref_eat.addValueEventListener(new ValueEventListener() {
+        ref_move = database.getReference("DB_CaloriesInfo");
+        ref_move.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 list.clear();
-                for(DataSnapshot historySnapShot: dataSnapshot.child("eat").getChildren()) {
-                    Eat eat = historySnapShot.getValue(Eat.class);
-                    list.add(eat);
+                for(DataSnapshot historySnapShot: dataSnapshot.child("move").getChildren()) {
+                    Move move = historySnapShot.getValue(Move.class);
+                    list.add(move);
                 }
                 // listView
-                adapter = new ArrayAdapter<>(EatActivity.this, android.R.layout.simple_list_item_1,list);
+                adapter = new ArrayAdapter<>(MoveActivity.this, android.R.layout.simple_list_item_1,list);
                 listView.setAdapter(adapter);
 
             }
@@ -104,7 +99,7 @@ public class EatActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 if(databaseError != null) {
-                    Toast.makeText(EatActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(MoveActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -115,7 +110,7 @@ public class EatActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GetStartModel getStartModel = dataSnapshot.getValue(GetStartModel.class);
                 if (getStartModel == null) {
-                    Intent intent = new Intent(EatActivity.this, GetStart.class);
+                    Intent intent = new Intent(MoveActivity.this, GetStart.class);
                     startActivity(intent);
                 }
             }
@@ -128,11 +123,11 @@ public class EatActivity extends AppCompatActivity {
 
         //write to DB
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        ref_eat = database.getReference("DB_CaloriesInfo");
+        ref_move = database.getReference("DB_CaloriesInfo");
 
         for (int i =0; i<list.size(); i++){
-            String id = ref_eat.push().getKey();
-            ref_eat.child("eat").child(id).setValue(list.get(i));
+            String id = ref_move.push().getKey();
+            ref_move.child("move").child(id).setValue(list.get(i));
         }
 
 
@@ -160,7 +155,7 @@ public class EatActivity extends AppCompatActivity {
 
 
         //short click
-        intent = new Intent(this, CalculateEatCalories.class);
+        intent = new Intent(this, CalculateMoveCalories.class);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -168,22 +163,22 @@ public class EatActivity extends AppCompatActivity {
                 // after filter - refresh list or create another list with searched items.
                 System.out.println("position : " + position);
                 System.out.println("id : " + id);
-                Eat eat = list.get(position);
+                Move move = list.get(position);
 
-                intent.putExtra("food", eat.getFood());
-                intent.putExtra("calories", eat.getCalories());
+                intent.putExtra("exercise", move.getExercises());
+                intent.putExtra("calories", move.getCalories());
                 startActivity(intent);
+
 
 
             }
         });
 
-        // tyep eat_gram -> calculate calories
     }
 
 
-    public void goToRecordEatInput(View view) {
-        Intent intent = new Intent(this, InputEat.class);
+    public void goToRecordEat(View view) {
+        Intent intent = new Intent(this, EatActivity.class);
         startActivity(intent);
     }
 
@@ -203,5 +198,6 @@ public class EatActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    public void MoveInput(View view) {
+    }
 }

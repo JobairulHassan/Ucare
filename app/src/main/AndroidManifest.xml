@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
 
+        <activity android:name=".calorie_counter.MoveActivity" />
         <activity android:name=".RetrievePDF" />
         <activity android:name=".med_pdf" />
         <activity android:name=".bleed" />
@@ -47,9 +48,11 @@
         <activity android:name=".calorie_counter.EatActivity" />
         <activity android:name=".calorie_counter.GetStart" />
         <activity android:name=".calorie_counter.HistoryController" />
-        <activity android:name=".calorie_counter.OverviewActivity"></activity>
+        <activity android:name=".calorie_counter.OverviewActivity" />
         <activity android:name=".calorie_counter.CalculateEatCalories" />
-
+        <activity android:name=".calorie_counter.InputEat" />
+        <activity android:name=".calorie_counter.InputMove"/>
+        <activity android:name=".calorie_counter.CalculateMoveCalories" />
     </application>
 
 </manifest>

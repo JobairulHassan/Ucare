@@ -1,7 +1,5 @@
 package com.example.ucare.calorie_counter;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,79 +7,34 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.ViewCompat;
 
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.DatePicker;
+import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.ucare.R;
-import com.example.ucare.medicine.MedicinePresenter;
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class HistoryController extends AppCompatActivity {
-
-    @BindView(R.id.Ccalendar_view)
-    CompactCalendarView mCompactCalendarView;
-
-    @BindView(R.id.date_picker_txt_view)
-    TextView datePickerTextView;
-
-    @BindView(R.id.date_picker_btn)
-    RelativeLayout datePickerButton;
-
-    @BindView(R.id.tool_bar)
-    Toolbar toolbar;
-
-    @BindView(R.id.collapsingToolbar_Layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-
-    @BindView(R.id.appBarLayout)
-    AppBarLayout appBarLayout;
-
-    @BindView(R.id.historyListView)
-    FrameLayout contentFrame;
-
-
-    @BindView(R.id.coordinator_Layout)
-    CoordinatorLayout coordinatorLayout;
-
-    @BindView(R.id.date_picker_arrow_btn)
-    ImageView arrow;
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd", /*Locale.getDefault()*/Locale.ENGLISH);
-
-    private boolean isExpanded = false;
-
-
-
-
     ListView historyListView;
     ArrayAdapter<History> adapter;
     private ArrayList<History> historyArrayList;
@@ -89,8 +42,9 @@ public class HistoryController extends AppCompatActivity {
     private DatabaseReference ref_history;
     private DatabaseReference ref_overview;
     private DatabaseReference ref_basicInfo;
+    private FirebaseUser user;
     Date today = new Date();
-    private String TAG = "HistoryController";
+   // private String TAG = "HistoryController";
     static int sumOfCalories;
     static int sumOfMoveCal;
     static int sumOfEatCal;
@@ -101,70 +55,201 @@ public class HistoryController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_controller);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        textView = findViewById(R.id.selectedDate);
 
-        mCompactCalendarView.setLocale(TimeZone.getDefault(), /*Locale.getDefault()*/Locale.ENGLISH);
 
-        mCompactCalendarView.setShouldDrawDaysHeader(true);
+        historyArrayList = new ArrayList<>();
+//        //DB
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        ref_history = database.getReference("history").child(user.getUid());
+        ref_overview = database.getReference("overview").child(user.getUid());
+        ref_basicInfo = database.getReference("basicInfo").child(user.getUid());
+//
+//        //VIEW
+        historyListView = findViewById(R.id.historyListView);
 
-        mCompactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+        final String date = today.getYear()+1900 + "-" + (1+today.getMonth()) + "-" + today.getDate();
+
+        // Read from the database
+        readFromTheDatabase(date);
+
+
+
+
+    }
+
+
+
+    public void chooseDate(View view) throws OutOfDateRangeException {
+
+
+
+        // calender library
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_history_calendar,null);
+        builder.setView(dialogView);
+
+        //adding images
+        List<EventDay> events = new ArrayList<>();
+        final Calendar calendar = Calendar.getInstance();
+        events.add(new EventDay(calendar, R.drawable.ic_done));
+
+        final CalendarView calendarView = dialogView.findViewById(R.id.calendarView);
+        calendarView.setEvents(events);
+
+
+
+        //calendar icon
+        ref_basicInfo.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDayClick(Date dateClicked) {
-                setSubtitle(dateFormat.format(dateClicked));
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(dateClicked);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                GetStartModel getStartModel = dataSnapshot.getValue(GetStartModel.class);
+                if (getStartModel != null) {
+                    int currentWeight = getStartModel.getCurrentWeight();
+                    int targetWeight = getStartModel.getTargetWeight();
 
-                int day = calendar.get(Calendar.DAY_OF_WEEK);
-
-                if (isExpanded) {
-                    ViewCompat.animate(arrow).rotation(0).start();
-                } else {
-                    ViewCompat.animate(arrow).rotation(180).start();
+                    if(currentWeight>targetWeight && sumOfCalories >=0){
+                        //setting current date
+                        calendar.getInstance();
+                    }
                 }
-                isExpanded = !isExpanded;
-                appBarLayout.setExpanded(isExpanded, true);
-              //  presenter.reload(day);
+
             }
 
             @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
-                setSubtitle(dateFormat.format(firstDayOfNewMonth));
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
-        setCurrentDate(new Date());
+
+
+        //setting current date
+        calendar.getInstance();
+
+        calendarView.setDate(calendar);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        calendarView.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(EventDay eventDay) {
 
 
 
+                Calendar clickedDayCalendar = eventDay.getCalendar();
+                String selectedDate = String.valueOf(clickedDayCalendar.get(Calendar.YEAR))
+                        +'-'+   String.valueOf(clickedDayCalendar.get(Calendar.MONTH)+1)
+                        +'-'+   String.valueOf(clickedDayCalendar.get(Calendar.DATE));
+                textView.setText(selectedDate);
+                alertDialog.dismiss();
 
-
-
-
+                // Read from the database
+                readFromTheDatabase(selectedDate);
+            }
+        });
 
 
 
     }
 
-    public void setSubtitle(String subtitle) {
-        datePickerTextView.setText(subtitle);
-    }
-    public void setCurrentDate(Date date) {
-        setSubtitle(dateFormat.format(date));
-        mCompactCalendarView.setCurrentDate(date);
-    }
-    @OnClick(R.id.date_picker_btn)
-    void onDatePickerButtonClicked() {
-        if (isExpanded) {
-            ViewCompat.animate(arrow).rotation(0).start();
-        } else {
-            ViewCompat.animate(arrow).rotation(180).start();
-        }
+    private void readFromTheDatabase(final String date) {
 
-        isExpanded = !isExpanded;
-        appBarLayout.setExpanded(isExpanded, true);
+        ref_history.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                historyArrayList.clear();
+                for(DataSnapshot historySnapShot: dataSnapshot.child(date).getChildren()) {
+                    History history = historySnapShot.getValue(History.class);
+                    historyArrayList.add(history);
+                }
+                adapter = new ArrayAdapter<>(HistoryController.this, android.R.layout.simple_list_item_1,historyArrayList);
+                historyListView.setAdapter(adapter);
+
+                //short onclick
+                historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long idd) {
+                        //dialog -> delete
+
+                        History history = historyArrayList.get(position);
+                        final String id = history.getId();
+
+                        //1. build dialog with custome layout
+                        // inflate custom view -> set it on builder
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HistoryController.this);
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View dialogView = inflater.inflate(R.layout.dialog_history_delete,null);
+                        builder.setView(dialogView);
+
+
+                        //                        builder.setTitle("delete?");
+                        final AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
+
+                        Button delete_btn = dialogView.findViewById(R.id.dialog_delete);
+                        delete_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                ref_history.child(date).child(id).removeValue();
+                                alertDialog.dismiss();
+                            }
+                        });
+
+                        Button cancel_btn = dialogView.findViewById(R.id.dialog_cancel);
+                        cancel_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+
+
+
+                    }
+                });
+
+
+                //find the amount of calories and set text and send to overview
+                sumOfCalories = 0;
+                sumOfMoveCal = 0;
+                sumOfEatCal = 0;
+
+                for (int i =0; i < historyArrayList.size(); i++){
+                    sumOfCalories += Integer.valueOf(historyArrayList.get(i).getTotalCalories());
+                    if(Integer.valueOf(historyArrayList.get(i).getTotalCalories())>0){
+                        sumOfEatCal += Integer.valueOf(historyArrayList.get(i).getTotalCalories());
+                    }else{
+                        sumOfMoveCal += Integer.valueOf(historyArrayList.get(i).getTotalCalories());
+                    }
+                }
+                // calculate the sum of calories
+//                TextView sum = findViewById(R.id.sumOfCalories);
+//                sum.setText(String.valueOf(sumOfCalories));
+
+                System.out.println(sumOfCalories);
+                System.out.println(sumOfEatCal);
+                System.out.println(sumOfMoveCal);
+
+                Overview overview = new Overview(sumOfMoveCal,sumOfEatCal);
+                ref_overview.child(date).setValue(overview);
+                textView.setText(date);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                if(error != null) {
+                    Toast.makeText(HistoryController.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
-
-
 
 
     public void goToRecord(View view) {
@@ -174,7 +259,11 @@ public class HistoryController extends AppCompatActivity {
 
 
     public void goToOverview(View view) {
-      //  intent = new Intent(this, OverviewActivity.class);
-       // startActivity(intent);
+        intent = new Intent(this, OverviewActivity.class);
+//        intent.putExtra("sumOfCalories",String.valueOf(sumOfCalories));
+//        intent.putExtra("sumOfMoveCal",String.valueOf(sumOfMoveCal * -1));
+//        intent.putExtra("sumOfEatCal",String.valueOf(sumOfEatCal));
+
+        startActivity(intent);
     }
 }
