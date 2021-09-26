@@ -199,5 +199,7 @@ public class MoveActivity extends AppCompatActivity {
     }
 
     public void MoveInput(View view) {
+        Intent intent = new Intent(this, InputMove.class);
+        startActivity(intent);
     }
 }
