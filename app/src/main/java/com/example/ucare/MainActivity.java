@@ -1,13 +1,17 @@
 package com.example.ucare;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.ucare.medicine.MedicineActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +24,21 @@ public class MainActivity extends AppCompatActivity {
         bnv.setBackground(null);
         //bnv.getMenu().getItem(1).setChecked(true);
         bnv.setSelectedItemId(R.id.holder);
+        bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id){
+                    case R.id.account:
+                        Intent intent=new Intent(MainActivity.this,profile_user.class);
+                        startActivity(intent);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+
 
     }
     public void homeOnClick(View view){
@@ -43,18 +62,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,firstAid_main.class);
         startActivity(intent);
     }
-    public void profile (View v){
-        Intent intent=new Intent(MainActivity.this,profile_user.class);
-        startActivity(intent);
-    }
+
     public void pdf (View v){
         Intent intent=new Intent(MainActivity.this,med_pdf.class);
         startActivity(intent);
     }
-    public void user_profile (View v){
-        Intent intent=new Intent(MainActivity.this,profile_user.class);
-        startActivity(intent);
-    }
+//    public void user_profile (View v){
+//        Intent intent=new Intent(MainActivity.this,profile_user.class);
+//        startActivity(intent);
+//    }
 
 
 }

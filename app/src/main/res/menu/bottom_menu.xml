@@ -6,7 +6,7 @@
         android:id="@+id/account"
         android:title="Account"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_account"/>
+        android:icon="@drawable/ic_account" />
     <item
         android:id="@+id/holder"
         android:title=""

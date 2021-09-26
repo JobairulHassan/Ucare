@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -128,44 +129,43 @@ logout.setOnClickListener(new View.OnClickListener() {
                 loadingBar.setMessage("Please wait,your profile image is updating");
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
-                Uri resultUri=result.getUri();
+                final Uri resultUri=result.getUri();
 
-                StorageReference filePath =UserProfileImagesRef.child(currentUserID+".jpg");
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                final StorageReference filePath =UserProfileImagesRef.child(currentUserID+".jpg");
+                filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull  Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(profile_user.this,"Profile Image uploaded Successfully",Toast.LENGTH_SHORT).show();
-                            final String downloaedUrl=task.getResult().getStorage().getDownloadUrl().toString();
-                            RootRef.child("Users").child(currentUserID).child("image").setValue(downloaedUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull  Task<Void> task) {
-                                    if(task.isSuccessful())
-                                    {
-                                        Toast.makeText(profile_user.this, "Image save in database ,successfully... ", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
-                                    }
-                                    else
-                                    {
-                                        String message =task.getException().toString();
-                                        Toast.makeText(profile_user.this,"Error",Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
 
-                                    }
-
-                                }
-                            });
+                                final String downloadUrl = uri.toString();
+                                RootRef.child("Users").child(currentUserID).child("image").setValue(downloadUrl)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(profile_user.this, "Profile image stored to firebase database successfully.", Toast.LENGTH_SHORT).show();
+                                                    loadingBar.dismiss();
+                                                } else {
+                                                    String message = task.getException().getMessage();
+                                                    Toast.makeText(profile_user.this, "Error Occurred..." + message, Toast.LENGTH_SHORT).show();
+                                                    loadingBar.dismiss();
+                                                }
+                                            }
+                                        });
+                            }
+                        });
 
                         }
-                        else
-                        {
-                            String message =task.getException().toString();
-                            Toast.makeText(profile_user.this,"Error",Toast.LENGTH_SHORT).show();
-                            loadingBar.dismiss();
-                        }
+//                        else
+//                        {
+//                            //String message =task.getException().toString();
+//                            Toast.makeText(profile_user.this,"Error",Toast.LENGTH_SHORT).show();
+//                            loadingBar.dismiss();
+//                        }
 
-                    }
+                  //  }
                 });
 
             }

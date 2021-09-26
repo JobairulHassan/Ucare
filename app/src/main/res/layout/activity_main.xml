@@ -87,7 +87,7 @@
                     android:layout_weight="1"
                     android:background="@color/mainpg_icon"
                     android:padding="25dp"
-                    android:onClick="user_profile"
+
                     android:src="@drawable/blog" />
             </LinearLayout>
 
