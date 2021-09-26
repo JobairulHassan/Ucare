@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calorie_counter.OverviewActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_medium"
+        android:background="@color/colorPrimary"
+        android:text="Overview"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_text"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <view
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            class="im.dacer.androidcharts.PieView"
+            android:id="@+id/pie_view" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@color/colorPrimaryBlue"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryBlue"
+            android:text="  How much you can eat more : "/>
+
+        <TextView
+            android:id="@+id/chartGotCalories_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryBlue"
+            android:layout_alignParentTop="true"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:text="You can get"
+            android:textSize="23sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:textColor="@color/purple_700" />
+
+        <TextView
+            android:id="@+id/basicCalories"
+            android:text="0"
+            android:textSize="@dimen/extralargeText"
+            android:textColor="@color/purple_700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:text="kcal"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/purple_700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:text="You got"
+            android:textSize="@dimen/text_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/gotCalories"
+            android:text="0"
+            android:textSize="@dimen/extralargeText"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:text="kcal"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:text="You lost"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3" />
+
+        <TextView
+            android:id="@+id/lostCalories"
+            android:text="0"
+            android:textSize="@dimen/extralargeText"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:text="kcal"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+        <ImageButton
+            android:onClick="goToRecord"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:src="@drawable/ico_record_wh" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="8dp"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ico_overview" />
+
+
+
+        <ImageButton
+            android:onClick="goToHistory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:src="@drawable/ico_history" />
+
+    </LinearLayout>
+
+</LinearLayout>

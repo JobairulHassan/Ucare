@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calorie_counter.EatActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_item_padding"
+        android:background="@color/colorPrimary"
+        android:text="Record"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_text"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/text_large">
+
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_onbtn"
+            android:text="Eat"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"/>
+
+        <android.widget.Button
+            android:onClick="goToRecordMove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_offbtn"
+            android:text="Move"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/list_item_padding"
+            android:background="@drawable/custom_button"
+            android:text="Choose from list"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <android.widget.Button
+            android:onClick="goToRecordEatInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/list_item_padding"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button"
+            android:text="Input new Food"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_weight="5"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
+    </ListView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="@dimen/list_item_padding"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ico_record_wh"/>
+        <ImageButton
+            android:onClick="goToOverview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="@dimen/list_item_padding"
+            android:background="@color/white"
+            android:src="@drawable/ico_overview"/>
+        <ImageButton
+            android:onClick="goToHistory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="@dimen/list_item_padding"
+            android:background="@color/white"
+            android:src="@drawable/ico_history"/>
+
+    </LinearLayout>
+
+</LinearLayout>

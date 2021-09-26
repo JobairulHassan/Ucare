@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.ucare.calorie_counter.EatActivity;
+import com.example.ucare.calorie_counter.OverviewActivity;
 import com.example.ucare.medicine.MedicineActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,med_pdf.class);
         startActivity(intent);
     }
-
-
+    public void callorie_counter(View view) {
+        Intent intent=new Intent(MainActivity.this, OverviewActivity.class);
+        startActivity(intent);
+    }
 }
