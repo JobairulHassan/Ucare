@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
 
-        <activity android:name=".calorie_counter.MoveActivity" />
+        <activity android:name=".forgetpass"></activity>
+
         <activity android:name=".RetrievePDF" />
         <activity android:name=".med_pdf" />
         <activity android:name=".bleed" />
@@ -44,6 +47,12 @@
         <activity android:name=".medicine.MedicineActivity" />
         <activity android:name=".addmedicine.AddMedicineActivity" />
         <activity android:name=".alarm.ReminderActivity" />
+
+        <activity android:name=".report.MonthlyReportActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
         <activity android:name=".report.MonthlyReportActivity" /> <!-- activity related Calorie counter -->
         <activity android:name=".calorie_counter.EatActivity" />
         <activity android:name=".calorie_counter.GetStart" />
@@ -53,6 +62,8 @@
         <activity android:name=".calorie_counter.InputEat" />
         <activity android:name=".calorie_counter.InputMove"/>
         <activity android:name=".calorie_counter.CalculateMoveCalories" />
+        <activity android:name=".calorie_counter.MoveActivity" />
+
     </application>
 
 </manifest>
