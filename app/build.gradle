@@ -51,7 +51,9 @@ dependencies {
     //for circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-  
+  //for Calorie counter
+    implementation 'im.dacer:AndroidCharts:1.0.4'
+    implementation 'com.applandeo:material-calendar-view:1.4.0'
 
     //for medicine remainder
     implementation 'androidx.cardview:cardview:1.0.0'

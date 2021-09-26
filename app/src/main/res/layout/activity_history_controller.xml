@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calorie_counter.HistoryController"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_medium"
+        android:background="@color/colorPrimary"
+        android:text="History"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_text"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_medium"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp">
+
+        <android.widget.Button
+            android:id="@+id/choosedate"
+            android:onClick="chooseDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Choose Date"
+            android:textColor="@color/white"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/selectedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/historyListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/list_item_padding"
+        android:layout_weight="1">
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="8dp"
+            android:onClick="goToRecord"
+            android:background="@color/white"
+            android:src="@drawable/ico_record_wh" />
+
+        <ImageButton
+            android:onClick="goToOverview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:src="@drawable/ico_overview" />
+
+
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="8dp"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ico_history" />
+
+    </LinearLayout>
+
+</LinearLayout>
