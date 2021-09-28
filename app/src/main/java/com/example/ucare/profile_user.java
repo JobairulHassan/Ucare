@@ -90,7 +90,9 @@ logout.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(profile_user.this,login.class));
+        Intent intent=new Intent(getApplicationContext(),login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 });
     }

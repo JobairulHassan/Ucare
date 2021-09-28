@@ -28,7 +28,7 @@ public class forgetpass extends AppCompatActivity {
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email=forEmail.getText().toString();
+                email=forEmail.getText().toString().trim();
 
                 if (email.isEmpty())
                 {

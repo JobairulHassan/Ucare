@@ -67,6 +67,8 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void recoverPassword() {
+        Intent intent=new Intent(login.this,forgetpass.class);
+        startActivity(intent);
     }
 
     private void LogIn() {
