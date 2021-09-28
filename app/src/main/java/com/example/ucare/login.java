@@ -37,10 +37,21 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         recover=findViewById(R.id.recoverTxt);
         pb=findViewById(R.id.pg_bar);
 
-        recover.setOnClickListener(this);
+
         login.setOnClickListener(this);
 
+        recover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(login.this,forgetpass.class));
+                finish();
+            }
+        });
+
     }
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -56,6 +67,8 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void recoverPassword() {
+        Intent intent=new Intent(login.this,forgetpass.class);
+        startActivity(intent);
     }
 
     private void LogIn() {
@@ -79,4 +92,5 @@ public class login extends AppCompatActivity implements View.OnClickListener{
             }
         });
     }
+
 }
