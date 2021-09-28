@@ -50,6 +50,7 @@ public class OverviewActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = database.getReference("basicInfo").child(user.getUid());
 
+
         final PieView pieView = findViewById(R.id.pie_view);
         final ArrayList<PieHelper> pieHelperArrayList = new ArrayList<>();
 
@@ -62,6 +63,10 @@ public class OverviewActivity extends AppCompatActivity {
                 if (getStartModel != null) {
                     currentCalories = getStartModel.getCurrentCalories();
 
+                }else{
+                    Intent intent=new Intent(getApplicationContext(),GetStart.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
                 basicCalories_tv = findViewById(R.id.basicCalories);
                 basicCalories_tv.setText(String.valueOf(currentCalories));
@@ -79,11 +84,17 @@ public class OverviewActivity extends AppCompatActivity {
         final String date = today.getYear()+1900 + "-" + (1+today.getMonth()) + "-" + today.getDate();
 
         ref_overview = database.getReference("overview").child(user.getUid()).child(date);
+
         ref_overview.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Overview overview = dataSnapshot.getValue(Overview.class);
+                if(!dataSnapshot.exists()) {
+                    Overview ov = new Overview(0,0);
+                    ref_overview.setValue(ov);
+                }
+
+
                 sumOfEatCal = overview.getSumOfEatCal();
                 sumofMoveCal = overview.getSumOfMoveCal() * -1;
 
