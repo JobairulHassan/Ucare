@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ucare.calorie_counter.EatActivity;
-import com.example.ucare.calorie_counter.GetStart;
-import com.example.ucare.calorie_counter.Overview;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.ucare.calorie_counter.OverviewActivity;
 import com.example.ucare.medicine.MedicineActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private String currentUserID ;
     private FirebaseAuth mAuth;
     private TextView username;
+    private TextView userOccupation;
+    private AdView mAdView,adView;
+
+    private ImageSlider sliderView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +57,31 @@ public class MainActivity extends AppCompatActivity {
         bnv=findViewById(R.id.BottomNavigationView);
         userProfileImage=findViewById(R.id.user_pic);
         username=findViewById(R.id.user_name);
+        userOccupation=findViewById(R.id.user_occupation);
+        sliderView=findViewById(R.id.image_slider);
         bnv.setBackground(null);
+        // add view
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//
+//            }
+//        });
+
+        //extra line I am adding
+        MobileAds.initialize(this);
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        adView = findViewById(R.id.adView1);
+        //AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+//        AdView adView = new AdView(this);
+//        mAdView.setAdSize(AdSize.BANNER);
+//        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
         //profile info
         UserProfileImagesRef= FirebaseStorage.getInstance().getReference().child("Profile Images");
         mAuth= FirebaseAuth.getInstance();
@@ -70,7 +104,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         retrive_userName_pic();
+        sliderimg();
 
+    }
+
+    private void sliderimg() {
+        final List<SlideModel> remoteImages=new ArrayList<>();
+        RootRef.child("Image_Slider")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot data: snapshot.getChildren()){
+                            remoteImages.add(new SlideModel(data.child("url").getValue().toString(), ScaleTypes.FIT));
+                        }
+                        sliderView.setImageList(remoteImages,ScaleTypes.FIT);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void retrive_userName_pic() {
@@ -82,8 +136,10 @@ public class MainActivity extends AppCompatActivity {
                         {
                             String retrieveUserName =dataSnapshot.child("name").getValue().toString();
                             String retrieveProfileImage =dataSnapshot.child("image").getValue().toString();
+                            String retrieveProfileAge =dataSnapshot.child("age").getValue().toString();
 
                             username.setText(retrieveUserName);
+                            userOccupation.setText(retrieveProfileAge);
                             Picasso.get().load(retrieveProfileImage).into(userProfileImage);
                         }
 

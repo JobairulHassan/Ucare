@@ -28,8 +28,8 @@ public class splash_screen extends AppCompatActivity {
         appName.setAnimation(anim);
         ConstraintLayout cl=findViewById(R.id.splash);
         AnimationDrawable animationDrawable=(AnimationDrawable) cl.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.setEnterFadeDuration(1000);
+        animationDrawable.setExitFadeDuration(1000);
         animationDrawable.start();
 
         new Handler().postDelayed(new Runnable(){
@@ -41,7 +41,7 @@ public class splash_screen extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },4000);
+        },5000);
 
     }
 }

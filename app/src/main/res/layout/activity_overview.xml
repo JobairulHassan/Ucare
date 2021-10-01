@@ -175,6 +175,28 @@
             android:gravity="right" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:onClick="newGoal"
+            android:text="Set a new Goal?"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/text_large"
+            android:textStyle="italic" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_weight="1"
