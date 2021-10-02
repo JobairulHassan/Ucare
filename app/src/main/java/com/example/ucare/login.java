@@ -82,7 +82,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 if(task.isSuccessful())
                 {
                     Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     finish();
                     startActivity(intent);
                 }else{

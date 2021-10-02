@@ -11,15 +11,18 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/u"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="156dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="277dp"
+        android:src="@drawable/logo_t"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
