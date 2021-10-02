@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucare">
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+
+        android:value="ca-app-pub-7533009360366526~2657103950"
+            />
+
         <activity android:name=".forgetpass"></activity>
 
         <activity android:name=".RetrievePDF" />
@@ -48,7 +54,7 @@
         <activity android:name=".addmedicine.AddMedicineActivity" />
         <activity android:name=".alarm.ReminderActivity" />
 
-        <activity android:name=".report.MonthlyReportActivity" />
+        <!-- <activity android:name=".report.MonthlyReportActivity" /> -->
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

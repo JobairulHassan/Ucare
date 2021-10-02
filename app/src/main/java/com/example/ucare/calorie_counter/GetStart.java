@@ -9,12 +9,18 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import com.example.ucare.R;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ucare.profile_user;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class GetStart extends AppCompatActivity {
     EditText targetWeight_et;
@@ -29,7 +35,7 @@ public class GetStart extends AppCompatActivity {
     int currentCalories;
     int targetCalories;
 
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference,dbRef;
     private FirebaseDatabase root;
     private FirebaseUser user;
 
@@ -56,57 +62,32 @@ public class GetStart extends AppCompatActivity {
 
 
     public void getStarted(View view) {
-
         Intent intent = new Intent(this, EatActivity.class);
             GetStartModel getStart = new GetStartModel(currentWeight, targetWeight, currentCalories, targetCalories);
             databaseReference.setValue(getStart);
-            startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+
+    public void Calculate(View view) {
         Button button = findViewById(R.id.calculateDayCal);
-
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radio_other:
-                if (checked)
-                    parameter = 0.95;
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        currentWeight = Integer.valueOf(String.valueOf(currentWeight_et.getText()));
-                        currentCalories = (int)(currentWeight* parameter * 24);
-                        calorieCurrent.setText(String.valueOf((int) currentCalories));
-
-                        targetWeight = Integer.valueOf(String.valueOf(targetWeight_et.getText()));
-                        targetCalories =  (int)(targetWeight* parameter * 24);
-                        calorieTarget.setText(String.valueOf((targetCalories)));
-                    }
-                });
-                break;
-
-            case R.id.radio_female:
-                if (checked)
-                    parameter = 0.9;
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        currentWeight = Integer.valueOf(String.valueOf(currentWeight_et.getText()));
-                        currentCalories = (int)(currentWeight* parameter * 24);
-                        calorieCurrent.setText(String.valueOf((int) currentCalories));
-
-                        targetWeight = Integer.valueOf(String.valueOf(targetWeight_et.getText()));
-                        targetCalories =  (int)(targetWeight* parameter * 24);
-                        calorieTarget.setText(String.valueOf((targetCalories)));
-                    }
-                });
-                    break;
-            case R.id.radio_male:
-                if (checked)
+        dbRef=root.getReference("Users").child(user.getUid()).child("gender");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue().toString().trim().toUpperCase().equals("MALE")){
                     parameter = 1.0;
+
+                }
+                else if(snapshot.getValue().toString().trim().toUpperCase().equals("FEMALE")){
+                    parameter = 0.9;
+
+                }
+                else{
+                    parameter = 0.95;
+
+                }
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -117,11 +98,14 @@ public class GetStart extends AppCompatActivity {
                         targetWeight = Integer.valueOf(String.valueOf(targetWeight_et.getText()));
                         targetCalories =  (int)(targetWeight* parameter * 24);
                         calorieTarget.setText(String.valueOf((targetCalories)));
-
                     }
                 });
-                    break;
+            }
 
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

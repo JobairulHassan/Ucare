@@ -16,9 +16,9 @@
 
 
     <!-- splash bg color here -->
-    <color name="colorGradientStart">#D9FF43</color>
-    <color name="colorGradientCenter">#F67831</color>
-    <color name="colorGradientEnd">#FF1493</color>
+    <color name="colorGradientStart">#D16BA5</color>
+    <color name="colorGradientCenter">#86A8E7</color>
+    <color name="colorGradientEnd">#5FFBF1</color>
 
     <!-- medicine Remainder part color -->
     <color name="colorAccent">#03a9f4</color>
