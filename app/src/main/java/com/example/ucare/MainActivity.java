@@ -19,6 +19,8 @@ import com.example.ucare.medicine.MedicineActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
         sliderView=findViewById(R.id.image_slider);
         bnv.setBackground(null);
         // add view
-//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-//            @Override
-//            public void onInitializationComplete(InitializationStatus initializationStatus) {
-//
-//            }
-//        });
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                adView = findViewById(R.id.adView1);
+                AdRequest adReq = new AdRequest.Builder().build();
+                adView.loadAd(adReq);
+            }
+        });
 
         //extra line I am adding
         MobileAds.initialize(this);
@@ -74,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        adView = findViewById(R.id.adView1);
-        //AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+//        adView = findViewById(R.id.adView1);
+//        AdRequest adReq = new AdRequest.Builder().build();
+//        adView.loadAd(adReq);
 
 //        AdView adView = new AdView(this);
 //        mAdView.setAdSize(AdSize.BANNER);
