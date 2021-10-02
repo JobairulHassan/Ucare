@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +52,8 @@ public class profile_user extends AppCompatActivity {
    private String currentUserID ;
    private FirebaseAuth mAuth;
    private ProgressDialog loadingBar;
-   private Button logout;
+
+    BottomNavigationView bnv;
 
 
     @Override
@@ -60,6 +64,9 @@ public class profile_user extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         currentUserID=mAuth.getCurrentUser().getUid();
         RootRef=FirebaseDatabase.getInstance().getReference();
+
+        bnv=findViewById(R.id.BottomNavigationView);
+        bnv.setBackground(null);
 
 
         InitializeFields();
@@ -83,18 +90,27 @@ public class profile_user extends AppCompatActivity {
 
             }
         });
-        RetrieveUserInformation();
 
-logout=(Button)findViewById(R.id.logOut);
-logout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent=new Intent(getApplicationContext(),login.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-});
+        //navigation Bar work
+        RetrieveUserInformation();
+        bnv.setSelectedItemId(R.id.holder);
+        bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id){
+                    case R.id.log_out:
+                        FirebaseAuth.getInstance().signOut();
+                        Intent i=new Intent(getApplicationContext(),login.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+
     }
 
 
@@ -254,4 +270,8 @@ logout.setOnClickListener(new View.OnClickListener() {
     }
 
 
+    public void gotoMain(View view) {
+        Intent intent=new Intent(profile_user.this,MainActivity.class);
+        startActivity(intent);
+    }
 }

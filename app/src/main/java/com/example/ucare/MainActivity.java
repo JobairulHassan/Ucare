@@ -102,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent=new Intent(MainActivity.this,profile_user.class);
                         startActivity(intent);
                         return true;
+                    case R.id.log_out:
+                        FirebaseAuth.getInstance().signOut();
+                        Intent i=new Intent(getApplicationContext(),login.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        return true;
 
                 }
                 return false;
@@ -159,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void homeOnClick(View view){
         bnv.getMenu().getItem(0).setChecked(false);
         bnv.getMenu().getItem(1).setChecked(false);
+
     }
     public void bmiCalculate(View view){
         Intent intent=new Intent(MainActivity.this,bmi_calculator.class);
