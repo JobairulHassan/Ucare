@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ucare.MainActivity;
 import com.example.ucare.R;
 
+import com.example.ucare.bmiactivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +63,7 @@ public class OverviewActivity extends AppCompatActivity {
 
                 GetStartModel getStartModel = dataSnapshot.getValue(GetStartModel.class);
                 if (getStartModel != null) {
-                    currentCalories = getStartModel.getCurrentCalories();
+                    currentCalories = getStartModel.getTargetCalories();
 
                 }else{
                     Intent intent=new Intent(getApplicationContext(),GetStart.class);
@@ -92,11 +94,15 @@ public class OverviewActivity extends AppCompatActivity {
                 if(!dataSnapshot.exists()) {
                     Overview ov = new Overview(0,0);
                     ref_overview.setValue(ov);
+                    sumOfEatCal = 0;
+                    sumofMoveCal = 0;
+                }else{
+                    sumOfEatCal = overview.getSumOfEatCal();
+                    sumofMoveCal = overview.getSumOfMoveCal() * -1;
                 }
 
 
-                sumOfEatCal = overview.getSumOfEatCal();
-                sumofMoveCal = overview.getSumOfMoveCal() * -1;
+
 
                 if (sumOfEatCal !=0 && sumofMoveCal !=0 &&currentCalories != 0) {
                     System.out.println("current : " +currentCalories);
@@ -149,6 +155,18 @@ public class OverviewActivity extends AppCompatActivity {
 
     public void goToHistory(View view) {
         intent = new Intent(this, HistoryController.class);
+        startActivity(intent);
+    }
+
+    public void newGoal(View view) {
+        intent = new Intent(this, GetStart.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+    @Override
+    public void onBackPressed(){
+        finishAffinity();
+        Intent intent=new Intent(OverviewActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

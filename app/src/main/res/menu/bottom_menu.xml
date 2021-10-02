@@ -14,9 +14,9 @@
         android:enabled="false"/>
     <item
         android:id="@+id/activity"
-        android:title="Activity"
+        android:title="Logout"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/activity"/>
+        android:icon="@drawable/logout"/>
 
 
 </menu>
