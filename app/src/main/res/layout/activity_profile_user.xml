@@ -8,99 +8,113 @@
     android:paddingTop="2dp"
     tools:context=".profile_user">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/p2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-       app:civ_border_width="5dp"
-
-
-        />
-
-    <EditText
+    <ImageView
+        android:id="@+id/imgView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/set_user_name"
-        android:layout_below="@+id/imageView"
-        android:inputType="textMultiLine"
-        android:hint="Username"
-        android:textAlignment="center"
+        android:layout_height="600dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_wave_bg_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textStyle="bold"
-        android:background="@drawable/backgroundedit"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:layout_marginTop="10dp"
-
-        >
-
-
-    </EditText>
-
-    <EditText
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/set_user_gender"
-        android:layout_below="@+id/set_user_name"
-        android:inputType="textMultiLine"
-        android:hint="Gender"
-        android:textAlignment="center"
+        android:layout_height="match_parent"
+        app:layout_anchorGravity="center">
 
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textStyle="bold"
-        android:background="@drawable/backgroundedit"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-
-        >
-    </EditText>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/set_user_age"
-        android:layout_below="@+id/set_user_gender"
-        android:inputType="textMultiLine"
-        android:hint="Age"
-        android:textAlignment="center"
-
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textStyle="bold"
-        android:background="@drawable/backgroundedit"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-
-        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/p2"
+            app:civ_border_width="5dp"
 
 
-    </EditText>
-    <android.widget.Button
-        android:id="@+id/UpdateAccountSettings"
-        android:layout_width="284dp"
+            />
 
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/set_user_age"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="395dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="23dp"
-        android:background="@drawable/custom_button"
-        android:text="Update" />
-</RelativeLayout>
+        <EditText
+            android:id="@+id/set_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="121dp"
+            android:layout_marginEnd="15dp"
+
+            android:background="@drawable/backgroundedit"
+            android:hint="Username"
+            android:inputType="textMultiLine"
+            android:padding="6dp"
+            android:textAlignment="center"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textStyle="bold"
+
+            >
+
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/set_user_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_user_name"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+
+            android:background="@drawable/backgroundedit"
+            android:hint="Gender"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textStyle="bold"
+
+            ></EditText>
+
+        <EditText
+            android:id="@+id/set_user_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_user_gender"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+
+            android:background="@drawable/backgroundedit"
+            android:hint="Age"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textStyle="bold"
+
+            >
+
+
+        </EditText>
+
+        <android.widget.Button
+            android:id="@+id/UpdateAccountSettings"
+            android:layout_width="284dp"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_user_age"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="23dp"
+            android:background="@drawable/custom_button"
+            android:text="Update" />
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/home_btn"
