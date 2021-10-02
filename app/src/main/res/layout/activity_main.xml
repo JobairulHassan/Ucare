@@ -105,30 +105,30 @@
                     >
 
 
-
                     <androidx.cardview.widget.CardView
                         android:layout_width="120dp"
                         android:layout_height="140dp"
-                        android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp"
                         app:cardCornerRadius="12dp"
                         android:layout_margin="5dp"
+
                         >
 
 
-
                         <ImageView
-                            android:src="@drawable/bmi"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:onClick="bmiCalculate"
+                            android:src="@drawable/bmi"
 
                             >
 
                         </ImageView>
-
 
 
                     </androidx.cardview.widget.CardView>
