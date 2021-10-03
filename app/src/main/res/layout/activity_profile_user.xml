@@ -88,7 +88,7 @@
             android:layout_marginEnd="16dp"
 
             android:background="@drawable/backgroundedit"
-            android:hint="Age"
+            android:hint="Designation"
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:textAlignment="center"
