@@ -37,10 +37,11 @@ android:background="@drawable/back_profile"
 
        </EditText>-->
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:src="@drawable/med_pres"/>
+        android:layout_width="216dp"
+        android:layout_height="202dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="75dp"
+        android:src="@drawable/med_pres" />
 
          <EditText
 
@@ -48,7 +49,7 @@ android:background="@drawable/back_profile"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/backgroundedit"
             android:ems="10"
@@ -114,18 +115,7 @@ android:background="@drawable/back_profile"
             android:background="@drawable/custom_button"
             android:text="Retrieve PDF File"
             android:textSize="20dp"
-            android:onClick="retrive"
-
-
-
-
-             />
-
-
-
-
-
-
+            android:onClick="retrive" />
 
 
     </LinearLayout>
